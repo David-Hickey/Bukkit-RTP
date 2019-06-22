@@ -22,4 +22,8 @@ public class RTPPlugin extends JavaPlugin {
         rtpCommand.setTabCompleter(new RTPCommandTabCompleter());
         rtpCommand.setExecutor(new RTPCommandExecutor());
     }
+
+    public RTPDataStore getDataStorage() {
+        return storedData;
+    }
 }
