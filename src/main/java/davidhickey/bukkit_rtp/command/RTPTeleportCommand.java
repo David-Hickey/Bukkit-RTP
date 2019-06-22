@@ -21,7 +21,7 @@ public class RTPTeleportCommand extends SubCommand {
             "tp",
             "teleport to a random wilderness location",
             "rtp.tp",
-            "/rtp tp [radius]",
+            "/<command> tp [radius]",
             "teleport", "tele", "t"
         );
     }
@@ -75,6 +75,8 @@ public class RTPTeleportCommand extends SubCommand {
                 );
 
                 player.teleport(destination);
+
+                plugin.getDataStorage().playerTeleported(player, System.currentTimeMillis());
 
                 return true;
             }
