@@ -81,7 +81,7 @@ public class SuperCommand {
             return true;
         }
 
-        String[] subCommandArgs = Arrays.copyOf(args, args.length - 1);
+        String[] subCommandArgs = Arrays.copyOfRange(args, 1, args.length);
         String subCommandAlias = args[0];
 
         SubCommand toExecute = this.getByNameOrAlias(subCommandAlias);
