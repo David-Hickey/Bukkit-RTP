@@ -3,6 +3,7 @@ package davidhickey.bukkit_rtp;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import davidhickey.bukkit_rtp.storage.RTPDataStore;
 
 public class RTPPlugin extends JavaPlugin {
 

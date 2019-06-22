@@ -1,4 +1,4 @@
-package davidhickey.bukkit_rtp;
+package davidhickey.bukkit_rtp.storage;
 
 import org.bukkit.Location;
 
