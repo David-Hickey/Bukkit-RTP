@@ -6,8 +6,8 @@
     <packaging>jar</packaging>
     <repositories>
         <repository>
-          <id>spigot-repo</id>
-          <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
     <dependencies>
@@ -27,7 +27,6 @@
         </dependency>
     </dependencies>
     <build>
-        <!-- <sourceDirectory>${basedir}/src</sourceDirectory> -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
