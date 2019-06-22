@@ -77,4 +77,18 @@ public class SubCommand {
 
         return false;
     }
+
+    public boolean hasCommonNamesOrAliases(SubCommand other) {
+        if (this.isNameOrAlias(other.getName())) {
+            return true;
+        }
+
+        for (String alias : other.getAliases()) {
+            if (this.isNameOrAlias(alias)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
