@@ -74,6 +74,12 @@ public class RTPTeleportCommand extends SubCommand {
                     plugin.getDataStorage().getMaxChecks()
                 );
 
+                if (destination == null) {
+                    // implies we can't find a safe place.
+                    player.sendMessage(ChatColor.RED + "Couldn't find a safe place to teleport. Try again later.");
+                    return true;
+                }
+
                 player.teleport(destination);
 
                 plugin.getDataStorage().playerTeleported(player, System.currentTimeMillis());
