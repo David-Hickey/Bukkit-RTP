@@ -39,9 +39,10 @@ public class RTPDataStore {
         ConfigurationSection enabledWorldsSection = conf.getConfigurationSection("enabled-worlds");
 
         for (String key : enabledWorldsSection.getKeys(false)) {
-            World world = worldByName(key, worlds);
-
-            if (world == null) {
+            World world;
+            try {
+                world = worldByName(key, worlds);
+            } catch (ConfigurationException ex) {
                 logger.warning("World '" + key + "' does not exist, ignoring configuration entry...'");
                 continue;
             }
@@ -57,9 +58,10 @@ public class RTPDataStore {
             }
 
             int radius = enabledWorldsSection.getInt("radius");
-            Location centre = parseConfigurationSectionAsLocation(world, enabledWorldsSection.getConfigurationSection("centre"));
-
-            if (centre == null) {
+            Location centre;
+            try {
+                centre = parseConfigurationSectionAsLocation(world, enabledWorldsSection.getConfigurationSection("centre"));
+            } catch (ConfigurationException ex) {
                 logger.warning("Centre for world '" + key + "' is malformed, ignoring configuration entry...'");
                 continue;
             }
@@ -69,30 +71,32 @@ public class RTPDataStore {
         }
     }
 
-    private World worldByName(String name, List<World> worlds) {
+    private World worldByName(String name, List<World> worlds) throws ConfigurationException {
         for (World w : worlds) {
             if (w.getName().equalsIgnoreCase(name)) {
                 return w;
             }
         }
 
-        return null;
+        throw new ConfigurationException("World doesn't seem to exist");
     }
 
-    private Location parseConfigurationSectionAsLocation(World w, ConfigurationSection s) {
+    // throws a ConfigurationException if the configuration is malformed.
+    private Location parseConfigurationSectionAsLocation(World w, ConfigurationSection s) throws ConfigurationException {
+        // y is optional, so if it's not given let's default it to 0.
         int y = s.isInt("y") ? s.getInt("y") : 0;
 
         int x, z;
         if (s.isInt("x")) {
             x = s.getInt("x");
         } else {
-            return null;
+            throw new ConfigurationException("missing an x-coordinate");
         }
 
         if (s.isInt("z")) {
             z = s.getInt("z");
         } else {
-            return null;
+            throw new ConfigurationException("missing a z-coordinate");
         }
 
         return new Location(w, x, y, z);
