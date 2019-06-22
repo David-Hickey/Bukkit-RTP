@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.ChatColor;
+import org.bukkit.command.TabCompleter;
 
 public class SuperCommand {
 
@@ -92,6 +93,39 @@ public class SuperCommand {
         }
 
         return toExecute.execute(sender, alias, subCommandAlias, subCommandArgs);
+    }
+
+    public TabCompleter makeBasicTabCompleter() {
+        return new TabCompleter() {
+            public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+                ArrayList<String> output = new ArrayList<>();
+
+                if (args.length == 0) {
+                    for (SubCommand subCommand : SuperCommand.this.commands) {
+                        if (subCommand.hasPermission(sender)) {
+                            output.add(subCommand.getName());
+                        }
+                    }
+                } else if (args.length == 1) {
+                    for (SubCommand subCommand : SuperCommand.this.commands) {
+                        if (subCommand.hasPermission(sender)) {
+                            if (subCommand.getName().toLowerCase().startsWith(args[0].toLowerCase())) {
+                                output.add(subCommand.getName());
+                            }
+
+                            for (String subAlias : subCommand.getAliases()) {
+                                if (subAlias.toLowerCase().startsWith(args[0].toLowerCase())) {
+                                    output.add(subAlias);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                return output;
+            }
+        };
     }
 
 }
