@@ -5,12 +5,14 @@
     <artifactId>bukkit_rtp</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -27,6 +29,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -70,4 +73,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
