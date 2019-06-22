@@ -1,4 +1,4 @@
-package davidhickey.bukkit_rtp;
+package davidhickey.bukkit_rtp.command;
 
 import org.bukkit.command.TabCompleter;
 import java.util.List;
