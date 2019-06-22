@@ -2,12 +2,12 @@ package davidhickey.bukkit_rtp;
 
 import org.bukkit.Location;
 
-public class WorldInfo {
+public class RTPWorldInfo {
 
     private final int radius;
     private final Location centre;
 
-    public WorldInfo(int radius, Location centre) {
+    public RTPWorldInfo(int radius, Location centre) {
         this.radius = radius;
         this.centre = centre;
     }

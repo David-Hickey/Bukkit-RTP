@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class RTPPlugin extends JavaPlugin {
 
     private HashMap<Player, Long> lastUsed;
-    private HashMap<World, WorldInfo> enabledWorldInfo;
+    private HashMap<World, RTPWorldInfo> enabledWorldInfo;
 
     private boolean enabledForWorld(World w) {
         return enabledWorldInfo.containsKey(w);
