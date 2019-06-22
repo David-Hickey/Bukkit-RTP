@@ -1,2 +1,3 @@
 # Bukkit-RTP
-Rewrite of my ancient RTP plugin for Bukkit.
+
+This plugin enables players to teleport to a random location in the wilderness. Handy for stopping griefers!
