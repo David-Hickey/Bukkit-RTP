@@ -27,9 +27,9 @@ public class SubCommand {
         this.aliases = aliases;
     }
 
-    public boolean execute(CommandSender sender, String alias, String[] args) {
+    public boolean execute(CommandSender sender, String superAlias, String alias, String[] args) {
         if (this.hasPermission(sender)) {
-            return this.executor.execute(this, sender, alias, args);
+            return this.executor.execute(this, sender, superAlias, alias, args);
         } else {
             sender.sendMessage(ChatColor.RED + "You don't have permission to do that.");
             return true;
@@ -61,7 +61,7 @@ public class SubCommand {
     }
 
     public boolean hasPermission(CommandSender sender) {
-        return sender.hasPermission(this.permission);
+        return this.permission == null || sender.hasPermission(this.permission);
     }
 
     public boolean isNameOrAlias(String command) {
