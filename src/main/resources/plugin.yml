@@ -3,12 +3,12 @@ author: David Hickey
 description: Teleports players to a random location in the wilderness.
 version: 1.0
 
-main: rtp.RTPPlugin
+main: davidhickey.bukkit_rtp.RTPPlugin
 
 commands:
     rtp:
         description: All commands for RTP
-        usage: /rtp help
+        usage: /rtp <subcommand> [args]
 
 permissions:
     rtp.tp:
