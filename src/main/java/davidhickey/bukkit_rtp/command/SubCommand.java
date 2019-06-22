@@ -1,19 +1,22 @@
 package davidhickey.bukkit_rtp.command;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.Command;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class SubCommand {
 
-    private final Command parent;
-    private final SubCommandExecutor executor;
-    private final String name;
-    private final String[] aliases;
-    private final String description;
-    private final String permission;
-    private final String usage;
+    protected final JavaPlugin plugin;
+    protected final PluginCommand parent;
+    protected final SubCommandExecutor executor;
+    protected final String name;
+    protected final String[] aliases;
+    protected final String description;
+    protected final String permission;
+    protected final String usage;
 
-    public SubCommand(Command parent, SubCommandExecutor executor, String name, String description, String permission, String usage, String... aliases) {
+    public SubCommand(JavaPlugin plugin, PluginCommand parent, SubCommandExecutor executor, String name, String description, String permission, String usage, String... aliases) {
+        this.plugin = plugin;
         this.parent = parent;
         this.executor = executor;
         this.name = name;
@@ -27,7 +30,7 @@ public class SubCommand {
         return this.executor.execute(this, sender, alias, args);
     }
 
-    public Command getParentCommand() {
+    public PluginCommand getParentCommand() {
         return this.parent;
     }
 
