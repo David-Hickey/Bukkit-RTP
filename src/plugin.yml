@@ -1,0 +1,32 @@
+name: RTP
+author: David Hickey
+description: Teleports players to a random location in the wilderness.
+version: 1.0
+
+main: rtp.RTPPlugin
+
+commands:
+    rtp:
+        description: All commands for RTP
+        usage: /rtp help
+
+permissions:
+    rtp.tp:
+        default: true
+        description: Allow /rtp tp
+
+    rtp.tp.radius:
+        default: op
+        description: Allow /rtp tp [radius]
+
+    rtp.config:
+        default: op
+        description: Allow /rtp config
+
+    rtp.nocooldown:
+        default: op
+        description: Allows you to bypass the cooldown
+
+    rtp.reload:
+        default: op
+        description: Allows /rtp reload
