@@ -16,6 +16,9 @@ public class RTPDataStore {
     private final Map<UUID, RTPWorldInfo> worldInfo;
     private final Map<UUID, Long> lastTeleported;
     private final int cooldown;
+
+    // maximum number of locations to check before giving up on finding a safe
+    // spot to drop the player.
     private final int maxChecks;
 
     public RTPDataStore(FileConfiguration conf, Logger logger, List<World> worlds) {
@@ -38,6 +41,9 @@ public class RTPDataStore {
 
         ConfigurationSection enabledWorldsSection = conf.getConfigurationSection("enabled-worlds");
 
+        // Populate the worldInfo map, one world at a time, using the Configuration
+        // file given. Any worlds with malformed configuration are skipped with
+        // a warning.
         for (String key : enabledWorldsSection.getKeys(false)) {
             World world;
             try {
@@ -71,6 +77,7 @@ public class RTPDataStore {
         }
     }
 
+    // throws a ConfigurationException if the world isn't there.
     private World worldByName(String name, List<World> worlds) throws ConfigurationException {
         for (World w : worlds) {
             if (w.getName().equalsIgnoreCase(name)) {
