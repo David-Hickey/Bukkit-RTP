@@ -54,7 +54,7 @@ public class RTPDataStore {
             }
 
             if (!enabledWorldsSection.isConfigurationSection(key)) {
-                logger.warning("Entry for world '" key + "' is malformed, ignoring it...");
+                logger.warning("Entry for world '" + key + "' is malformed, ignoring it...");
                 continue;
             }
 
