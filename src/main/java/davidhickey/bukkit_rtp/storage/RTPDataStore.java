@@ -25,14 +25,14 @@ public class RTPDataStore {
         this.worldInfo = new HashMap<>();
         this.lastTeleported = new HashMap<>();
 
-        if (conf.isInt("cooldown-seconds")) {
+        if (conf.isInt("cooldown-seconds") && conf.getInt("cooldown-seconds") >= 0) {
             this.cooldown = conf.getInt("cooldown-seconds");
         } else {
             logger.warning("Configuration key 'cooldown-seconds' is missing or invalid, defaulting to 60...");
             this.cooldown = 60;
         }
 
-        if (conf.isInt("maximum-checks")) {
+        if (conf.isInt("maximum-checks") && conf.getInt("maximum-checks") > 0) {
             this.maxChecks = conf.getInt("maximum-checks");
         } else {
             logger.warning("Configuration key 'maximum-checks' is missing or invalid, defaulting to 100...");
@@ -53,20 +53,22 @@ public class RTPDataStore {
                 continue;
             }
 
-            if (!enabledWorldsSection.isInt("radius")) {
+            ConfigurationSection enabledWorldSection = enabledWorldsSection.getConfigurationSection(key);
+
+            if (!enabledWorldSection.isInt("radius") || enabledWorldSection.getInt("radius") < 1) {
                 logger.warning("Radius for world '" + key + "' missing or invalid, ignoring configuration entry...'");
                 continue;
             }
 
-            if (!enabledWorldsSection.isConfigurationSection(("centre"))) {
+            if (!enabledWorldSection.isConfigurationSection(("centre"))) {
                 logger.warning("Centre for world '" + key + "' missing or invalid, ignoring configuration entry...'");
                 continue;
             }
 
-            int radius = enabledWorldsSection.getInt("radius");
+            int radius = enabledWorldSection.getInt("radius");
             Location centre;
             try {
-                centre = parseConfigurationSectionAsLocation(world, enabledWorldsSection.getConfigurationSection("centre"));
+                centre = parseConfigurationSectionAsLocation(world, enabledWorldSection.getConfigurationSection("centre"));
             } catch (ConfigurationException ex) {
                 logger.warning("Centre for world '" + key + "' is malformed, ignoring configuration entry...'");
                 continue;
@@ -90,6 +92,10 @@ public class RTPDataStore {
 
     // throws a ConfigurationException if the configuration is malformed.
     private Location parseConfigurationSectionAsLocation(World w, ConfigurationSection s) throws ConfigurationException {
+        if (s == null) {
+            throw new ConfigurationException("section is null");
+        }
+
         // y is optional, so if it's not given let's default it to 0.
         int y = s.isInt("y") ? s.getInt("y") : 0;
 
@@ -114,6 +120,10 @@ public class RTPDataStore {
     }
 
     public boolean canPlayerTeleportNow(Player p, long timeNow) {
+        if (p.hasPermission("rtp.nocooldown")) {
+            return true;
+        }
+
         if (lastTeleported.containsKey(p.getUniqueId())) {
             return timeNow - lastTeleported.get(p.getUniqueId()) > 20 * this.cooldown;
         } else {
