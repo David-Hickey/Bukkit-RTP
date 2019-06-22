@@ -9,8 +9,13 @@ commands:
     rtp:
         description: All commands for RTP
         usage: /rtp <subcommand> [args]
+        permission: rtp.rtp
 
 permissions:
+    rtp.rtp:
+        default: true
+        description: Anyone without this permission can't use /rtp AT ALL
+
     rtp.tp:
         default: true
         description: Allow /rtp tp
