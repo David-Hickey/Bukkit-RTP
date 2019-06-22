@@ -118,8 +118,14 @@ public class SuperCommand {
                                     output.add(subAlias);
                                 }
                             }
-
                         }
+                    }
+                } else if (args.length > 1) {
+                    SubCommand subCommand = getByNameOrAlias(args[0]);
+
+                    if (subCommand != null && subCommand.hasTabCompleter()) {
+                        String[] subCommandArgs = Arrays.copyOfRange(args, 1, args.length);
+                        output.addAll(subCommand.getTabCompleter().onTabComplete(sender, command, args[1], subCommandArgs));
                     }
                 }
 
