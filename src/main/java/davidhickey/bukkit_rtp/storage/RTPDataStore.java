@@ -136,6 +136,10 @@ public class RTPDataStore {
         }
     }
 
+    public int secondsUntilPlayerCanTeleport(Player p, long timeNow) {
+        return (int) Math.ceil((this.cooldown * 1000.0 - System.currentTimeMillis() + lastTeleported.get(p.getUniqueId())) / 1000.0);
+    }
+
     public void playerTeleported(Player p, long timeNow) {
         lastTeleported.put(p.getUniqueId(), timeNow);
     }

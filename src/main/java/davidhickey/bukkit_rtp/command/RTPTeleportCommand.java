@@ -42,7 +42,9 @@ public class RTPTeleportCommand extends SubCommand {
                 }
 
                 if (!plugin.getDataStorage().canPlayerTeleportNow(player, System.currentTimeMillis())) {
-                    player.sendMessage(ChatColor.RED + "Wait a while before trying to teleport again.");
+                    player.sendMessage(ChatColor.RED + "Wait "
+                        + ChatColor.DARK_RED + plugin.getDataStorage().secondsUntilPlayerCanTeleport(player, System.currentTimeMillis()) + " seconds "
+                        + ChatColor.RED + "before trying to teleport again.");
                     return true;
                 }
 
