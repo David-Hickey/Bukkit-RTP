@@ -3,6 +3,7 @@ package davidhickey.bukkit_rtp.command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.ChatColor;
 
 public class SubCommand {
 
@@ -27,7 +28,12 @@ public class SubCommand {
     }
 
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        return this.executor.execute(this, sender, alias, args);
+        if (this.hasPermission(sender)) {
+            return this.executor.execute(this, sender, alias, args);
+        } else {
+            sender.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+            return true;
+        }
     }
 
     public PluginCommand getParentCommand() {
