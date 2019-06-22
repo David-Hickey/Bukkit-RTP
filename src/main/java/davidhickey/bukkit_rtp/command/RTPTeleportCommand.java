@@ -28,7 +28,7 @@ public class RTPTeleportCommand extends SubCommand {
 
     private static SubCommandExecutor makeExecutor(final RTPPlugin plugin) {
         return new SubCommandExecutor() {
-            public boolean execute(SubCommand command, CommandSender sender, String alias, String[] args) {
+            public boolean execute(SubCommand command, CommandSender sender, String superAlias, String alias, String[] args) {
                 if (!(sender instanceof Player)) {
                     sender.sendMessage(ChatColor.RED + "Only players can do that.");
                     return true;
