@@ -130,7 +130,7 @@ public class RTPDataStore {
         }
 
         if (lastTeleported.containsKey(p.getUniqueId())) {
-            return timeNow - lastTeleported.get(p.getUniqueId()) > 20 * this.cooldown;
+            return timeNow - lastTeleported.get(p.getUniqueId()) > 1000 * this.cooldown;
         } else {
             return true;
         }
