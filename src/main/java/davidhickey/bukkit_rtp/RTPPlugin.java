@@ -2,27 +2,18 @@ package davidhickey.bukkit_rtp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
-import java.util.HashMap;
 
 public class RTPPlugin extends JavaPlugin {
 
-    private HashMap<Player, Long> lastUsed;
-    private HashMap<World, RTPWorldInfo> enabledWorldInfo;
-
-    private boolean enabledForWorld(World w) {
-        return enabledWorldInfo.containsKey(w);
-    }
+    private RTPDataStore storedData;
 
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        lastUsed = new HashMap<>();
-        enabledWorldInfo = new HashMap<>();
-
+        storedData = new RTPDataStore(getConfig(), getLogger(), this.getServer().getWorlds());
 
         PluginCommand rtpCommand = getCommand("rtp");
         rtpCommand.setTabCompleter(new RTPCommandTabCompleter());
