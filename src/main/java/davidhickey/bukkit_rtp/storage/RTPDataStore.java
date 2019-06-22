@@ -49,19 +49,24 @@ public class RTPDataStore {
             try {
                 world = worldByName(key, worlds);
             } catch (ConfigurationException ex) {
-                logger.warning("World '" + key + "' does not exist, ignoring configuration entry...'");
+                logger.warning("World '" + key + "' does not exist, ignoring configuration entry...");
+                continue;
+            }
+
+            if (!enabledWorldsSection.isConfigurationSection(key)) {
+                logger.warning("Entry for world '" key + "' is malformed, ignoring it...");
                 continue;
             }
 
             ConfigurationSection enabledWorldSection = enabledWorldsSection.getConfigurationSection(key);
 
             if (!enabledWorldSection.isInt("radius") || enabledWorldSection.getInt("radius") < 1) {
-                logger.warning("Radius for world '" + key + "' missing or invalid, ignoring configuration entry...'");
+                logger.warning("Radius for world '" + key + "' missing or invalid, ignoring configuration entry...");
                 continue;
             }
 
             if (!enabledWorldSection.isConfigurationSection(("centre"))) {
-                logger.warning("Centre for world '" + key + "' missing or invalid, ignoring configuration entry...'");
+                logger.warning("Centre for world '" + key + "' missing or invalid, ignoring configuration entry...");
                 continue;
             }
 
@@ -70,7 +75,7 @@ public class RTPDataStore {
             try {
                 centre = parseConfigurationSectionAsLocation(world, enabledWorldSection.getConfigurationSection("centre"));
             } catch (ConfigurationException ex) {
-                logger.warning("Centre for world '" + key + "' is malformed, ignoring configuration entry...'");
+                logger.warning("Centre for world '" + key + "' is malformed, ignoring configuration entry...");
                 continue;
             }
 
