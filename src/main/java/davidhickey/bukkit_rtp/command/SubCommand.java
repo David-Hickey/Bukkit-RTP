@@ -56,8 +56,8 @@ public class SubCommand {
         return this.permission;
     }
 
-    public String getUsage() {
-        return this.usage;
+    public String getUsage(String superAlias) {
+        return this.usage.replace("<command>", superAlias);
     }
 
     public boolean hasPermission(CommandSender sender) {
