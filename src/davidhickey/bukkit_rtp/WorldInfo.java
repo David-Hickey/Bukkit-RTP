@@ -7,6 +7,11 @@ public class WorldInfo {
     private final int radius;
     private final Location centre;
 
+    public WorldInfo(int radius, Location centre) {
+        this.radius = radius;
+        this.centre = centre;
+    }
+
     public int getRadius() {
         return radius;
     }
