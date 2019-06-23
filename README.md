@@ -2,9 +2,34 @@
 
 This plugin enables players to teleport to a random location in the wilderness. Handy for stopping griefers!
 
+### Commands and Permissions
+
+All of the commands added by this plugin are grouped under the `/rtp` command. Here is a list:
+* `/rtp` - the parent command under which all other commands are grouped
+  - Usage: `/rtp [subcommand] [args]`
+  - Aliases: `/randtp`
+  - Permissions:
+    - `rtp.rtp` to allow use of this command. If a player doesn't have this permissions, they can't use `/rtp` at all, including subcommands!
+* `/rtp tp` - teleports the user to a random wilderness location
+  - Usage: `/rtp tp [radius]`
+  - Aliases: `/rtp tele`, `/rtp teleport`
+  - Permissions:
+    - `rtp.tp` to allow use of the command
+    - `rtp.tp.radius` to allow specifying a custom radius
+    - `rtp.tp.nocooldown` to allow teleporting without having to wait in between
+* `/rtp config` - view the plugin configuration
+  - Usage: `/rtp config`
+  - Aliases: `/rtp conf`, `/rtp c`, `/rtp configuration`
+  - Permissions:
+    - `rtp.config` to allow use of the command
+* `/rtp help` - display help message
+  - Usage: `/rtp help`
+  - Aliases: `/rtp h`
+  - Permissions: Enabled for everyone who has access to `/rtp`
+
 ### Configuring
 
-A normal `config.yml` file looks like this:
+A normal `config.yml` file looks like this (note that the indentation is important, and you must use spaces instead of tabs):
 
 ```
 cooldown-seconds: 60
