@@ -56,11 +56,14 @@ public class SuperCommand {
     protected void printHelp(CommandSender sender, String superAlias) {
         sender.sendMessage(ChatColor.GRAY + "Help for command " + ChatColor.GOLD + "/" + superAlias + ChatColor.GRAY + ":");
         for (SubCommand command : commands) {
-            sender.sendMessage(" " + ChatColor.GOLD + "/" + superAlias + " " + command.getName() + ChatColor.GRAY + ":");
-            sender.sendMessage("  " + ChatColor.GRAY + "Description: " + ChatColor.GOLD + command.getDescription());
-            sender.sendMessage("  " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + command.getUsage(superAlias));
+            sender.sendMessage(ChatColor.GRAY + " - "
+                + ChatColor.GOLD + "/" + superAlias + " " + command.getName()
+                + ChatColor.GRAY + ": "
+                + ChatColor.GOLD + command.getDescription());
+
+            sender.sendMessage("   - " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + command.getUsage(superAlias));
             if (command.getAliases().length > 0) {
-                sender.sendMessage("  " + ChatColor.GRAY + "Aliases: " + ChatColor.GOLD
+                sender.sendMessage("   - " + ChatColor.GRAY + "Aliases: " + ChatColor.GOLD
                     + String.join(ChatColor.GRAY + ", " + ChatColor.GOLD, command.getAliases()));
             }
             sender.sendMessage("");
