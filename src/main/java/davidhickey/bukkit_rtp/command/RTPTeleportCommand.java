@@ -9,6 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.Material;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Random;
 
 public class RTPTeleportCommand extends SubCommand {
@@ -42,9 +44,14 @@ public class RTPTeleportCommand extends SubCommand {
                 }
 
                 if (!plugin.getDataStorage().canPlayerTeleportNow(player, System.currentTimeMillis())) {
-                    player.sendMessage(ChatColor.RED + "Wait "
-                        + ChatColor.DARK_RED + plugin.getDataStorage().secondsUntilPlayerCanTeleport(player, System.currentTimeMillis()) + " seconds "
-                        + ChatColor.RED + "before trying to teleport again.");
+                    if (plugin.getDataStorage().onWaitingList(player)) {
+                        player.sendMessage(ChatColor.RED + "Still trying to find a safe location, be patient!");
+                    } else {
+                        player.sendMessage(ChatColor.RED + "Wait "
+                            + ChatColor.DARK_RED + plugin.getDataStorage().secondsUntilPlayerCanTeleport(player, System.currentTimeMillis()) + " seconds "
+                            + ChatColor.RED + "before trying to teleport again.");
+                    }
+
                     return true;
                 }
 
@@ -69,41 +76,24 @@ public class RTPTeleportCommand extends SubCommand {
                     }
                 }
 
-                Location destination = RTPTeleportCommand.getRandomSafeLocation(
+                plugin.getDataStorage().addToWaitingList(player);
+                player.sendMessage(ChatColor.GRAY + "Searching for a safe location...");
+
+                // Break the checking up - now it checks one possible placer per tick,
+                // massively reducing lag.
+                BukkitRunnable findSafePlaceWorker = new FindSafeLocationRunnable(
+                    plugin,
+                    player,
                     player.getWorld(),
-                    radius,
                     worldInfo.getCentre(),
+                    radius,
                     plugin.getDataStorage().getMaxChecks()
                 );
-
-                if (destination == null) {
-                    // implies we can't find a safe place.
-                    player.sendMessage(ChatColor.RED + "Couldn't find a safe place to teleport. Try again later.");
-                    return true;
-                }
-
-                player.teleport(destination);
-
-                plugin.getDataStorage().playerTeleported(player, System.currentTimeMillis());
+                findSafePlaceWorker.runTaskTimer(plugin, 1, 1);
 
                 return true;
             }
         };
-    }
-
-    private static Location getRandomSafeLocation(World world, int radius, Location centre, int maxChecks) {
-        Location loc = null;
-        int checksSoFar = 0;
-        do {
-            loc = getRandomLocation(world, radius, centre);
-            checksSoFar++;
-
-            if (checksSoFar > maxChecks) {
-                return null;
-            }
-        } while (!isSafe(loc));
-
-        return loc;
     }
 
     private static boolean isSafe(Location loc) {
@@ -134,6 +124,48 @@ public class RTPTeleportCommand extends SubCommand {
         double z = iz + 0.5;
 
         return new Location(world, x, world.getHighestBlockYAt(ix, iz), z);
+    }
+
+    private static class FindSafeLocationRunnable extends BukkitRunnable {
+
+        private final RTPPlugin plugin;
+        private final Player player;
+        private final World world;
+        private final Location centre;
+        private final int radius;
+
+        private int checksLeft;
+
+        public FindSafeLocationRunnable(RTPPlugin plugin, Player player, World world, Location centre, int radius, int maxChecks) {
+            this.plugin = plugin;
+            this.player = player;
+            this.world = world;
+            this.centre = centre;
+            this.radius = radius;
+
+            this.checksLeft = maxChecks;
+        }
+
+        @Override
+        public void run() {
+            if (this.checksLeft-- <= 0) {
+                this.player.sendMessage(ChatColor.RED + "Couldn't find a safe place to teleport. Try again later.");
+                this.plugin.getDataStorage().removeFromWaitingList(this.player);
+                this.cancel();
+            }
+
+            Location testLocation = RTPTeleportCommand.getRandomLocation(
+                this.world,
+                this.radius,
+                this.centre
+            );
+
+            if (RTPTeleportCommand.isSafe(testLocation)) {
+                this.player.teleport(testLocation);
+                this.plugin.getDataStorage().playerTeleported(this.player, System.currentTimeMillis());
+                this.cancel();
+            }
+        }
     }
 
 }

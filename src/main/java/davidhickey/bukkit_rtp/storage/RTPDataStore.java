@@ -11,12 +11,14 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 public class RTPDataStore {
 
     private final Map<UUID, RTPWorldInfo> worldInfo;
     private final Map<UUID, Long> lastTeleported;
     private final int cooldown;
+    private final Set<UUID> playerWaitingList;
 
     // maximum number of locations to check before giving up on finding a safe
     // spot to drop the player.
@@ -25,6 +27,7 @@ public class RTPDataStore {
     public RTPDataStore(FileConfiguration conf, Logger logger, List<World> worlds) {
         this.worldInfo = new HashMap<>();
         this.lastTeleported = new HashMap<>();
+        this.playerWaitingList = new HashSet<>();
 
         if (conf.isInt("cooldown-seconds") && conf.getInt("cooldown-seconds") >= 0) {
             this.cooldown = conf.getInt("cooldown-seconds");
@@ -126,6 +129,10 @@ public class RTPDataStore {
     }
 
     public boolean canPlayerTeleportNow(Player p, long timeNow) {
+        if (playerWaitingList.contains(p.getUniqueId())) {
+            return false;
+        }
+
         if (p.hasPermission("rtp.tp.nocooldown")) {
             return true;
         }
@@ -137,12 +144,29 @@ public class RTPDataStore {
         }
     }
 
+    public boolean onWaitingList(Player p) {
+        return playerWaitingList.contains(p.getUniqueId());
+    }
+
+    public void removeFromWaitingList(Player p) {
+        playerWaitingList.remove(p.getUniqueId());
+    }
+
     public int secondsUntilPlayerCanTeleport(Player p, long timeNow) {
+        if (!lastTeleported.containsKey(p.getUniqueId())) {
+            return 0;
+        }
+
         return (int) Math.ceil((this.cooldown * 1000.0 - System.currentTimeMillis() + lastTeleported.get(p.getUniqueId())) / 1000.0);
     }
 
     public void playerTeleported(Player p, long timeNow) {
         lastTeleported.put(p.getUniqueId(), timeNow);
+        playerWaitingList.remove(p.getUniqueId());
+    }
+
+    public void addToWaitingList(Player p) {
+        playerWaitingList.add(p.getUniqueId());
     }
 
     public RTPWorldInfo getWorldInfo(World w) {
