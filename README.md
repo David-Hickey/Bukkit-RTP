@@ -7,7 +7,7 @@ This plugin enables players to teleport to a random location in the wilderness. 
 All of the commands added by this plugin are grouped under the `/rtp` command. Here is a list:
 * `/rtp` - the parent command under which all other commands are grouped
   - Usage: `/rtp [subcommand] [args]`
-  - Aliases: `rtele`, `rteleport`, `randtp`, `randtele`, `randteleport`, `randomtp`, `randomtele`, `randomteleport`
+  - Aliases: `/rtele`, `/rteleport`, `/randtp`, `/randtele`, `/randteleport`, `/randomtp`, `/randomtele`, `/randomteleport`
   - Permissions:
     - `rtp.rtp` to allow use of this command. If a player doesn't have this permissions, they can't use `/rtp` at all, including subcommands!
 * `/rtp tp` - teleports the user to a random wilderness location
