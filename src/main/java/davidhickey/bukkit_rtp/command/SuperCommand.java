@@ -56,6 +56,10 @@ public class SuperCommand {
     protected void printHelp(CommandSender sender, String superAlias) {
         sender.sendMessage(ChatColor.GRAY + "Help for command " + ChatColor.GOLD + "/" + superAlias + ChatColor.GRAY + ":");
         for (SubCommand command : commands) {
+            if (!command.hasPermission(sender)) {
+                continue;
+            }
+
             sender.sendMessage(ChatColor.GRAY + " - "
                 + ChatColor.GOLD + "/" + superAlias + " " + command.getName()
                 + ChatColor.GRAY + ": "
