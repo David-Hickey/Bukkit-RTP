@@ -10,6 +10,7 @@ commands:
         description: All commands for RTP
         usage: /rtp <subcommand> [args]
         permission: rtp.rtp
+        aliases: [rtele, rteleport, randtp, randtele, randteleport, randomtp, randomtele, randomteleport]
 
 permissions:
     rtp.rtp:
@@ -28,7 +29,7 @@ permissions:
         default: op
         description: Allow /rtp config
 
-    rtp.nocooldown:
+    rtp.tp.nocooldown:
         default: op
         description: Allows you to bypass the cooldown
 

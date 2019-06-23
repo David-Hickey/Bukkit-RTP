@@ -126,7 +126,7 @@ public class RTPDataStore {
     }
 
     public boolean canPlayerTeleportNow(Player p, long timeNow) {
-        if (p.hasPermission("rtp.nocooldown")) {
+        if (p.hasPermission("rtp.tp.nocooldown")) {
             return true;
         }
 
