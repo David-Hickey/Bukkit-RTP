@@ -26,6 +26,8 @@ All of the commands added by this plugin are grouped under the `/rtp` command. H
   - Usage: `/rtp help`
   - Aliases: `/rtp h`
   - Permissions: Enabled for everyone who has access to `/rtp`
+  
+By default, normal players have `rtp.rtp` and `rtp.tp`. Ops get every permission listed above.
 
 ### Configuring
 
