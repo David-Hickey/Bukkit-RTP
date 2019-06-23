@@ -61,9 +61,9 @@ public class SuperCommand {
                 + ChatColor.GRAY + ": "
                 + ChatColor.GOLD + command.getDescription());
 
-            sender.sendMessage("   - " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + command.getUsage(superAlias));
+            sender.sendMessage(ChatColor.GRAY + "   - Usage: " + ChatColor.GOLD + command.getUsage(superAlias));
             if (command.getAliases().length > 0) {
-                sender.sendMessage("   - " + ChatColor.GRAY + "Aliases: " + ChatColor.GOLD
+                sender.sendMessage(ChatColor.GRAY + "   - Aliases: " + ChatColor.GOLD
                     + String.join(ChatColor.GRAY + ", " + ChatColor.GOLD, command.getAliases()));
             }
             sender.sendMessage("");
