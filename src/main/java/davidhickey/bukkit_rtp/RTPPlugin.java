@@ -25,6 +25,7 @@ public class RTPPlugin extends JavaPlugin {
 
         rtpCommand = new SuperCommand(this, bukkitRtpCommand);
         rtpCommand.addSubCommand(new RTPTeleportCommand(this));
+        rtpCommand.addSubCommand(new RTPConfigCommand(this));
         rtpCommand.addHelpCommand();
 
         bukkitRtpCommand.setTabCompleter(rtpCommand.makeBasicTabCompleter());

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.List;
+import java.util.Set;
 
 public class RTPDataStore {
 
@@ -154,5 +155,9 @@ public class RTPDataStore {
 
     public int getCooldown() {
         return this.cooldown;
+    }
+
+    public Set<UUID> getEnabledWorldIDs() {
+        return this.worldInfo.keySet();
     }
 }
