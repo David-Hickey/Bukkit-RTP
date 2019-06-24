@@ -19,13 +19,15 @@ public class RTPPlugin extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        storedData = new RTPDataStore(getConfig(), getLogger(), this.getServer().getWorlds());
+        // Initialises storedData from configuration file.
+        reloadDataStorage();
 
         PluginCommand bukkitRtpCommand = getCommand("rtp");
 
         rtpCommand = new SuperCommand(this, bukkitRtpCommand);
         rtpCommand.addSubCommand(new RTPTeleportCommand(this));
         rtpCommand.addSubCommand(new RTPConfigCommand(this));
+        rtpCommand.addSubCommand(new RTPReloadCommand(this));
         rtpCommand.addHelpCommand();
 
         bukkitRtpCommand.setTabCompleter(rtpCommand.makeBasicTabCompleter());
@@ -38,5 +40,10 @@ public class RTPPlugin extends JavaPlugin {
 
     public RTPDataStore getDataStorage() {
         return storedData;
+    }
+
+    public void reloadDataStorage() {
+        reloadConfig();
+        this.storedData = new RTPDataStore(getConfig(), getLogger(), this.getServer().getWorlds());
     }
 }
