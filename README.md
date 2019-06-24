@@ -2,6 +2,14 @@
 
 This plugin enables players to teleport to a random location in the wilderness. Handy for stopping griefers!
 
+### Contents of this README
+
+* [Commands](#commands)
+* [Permissions](#permissions)
+* [Configuring](#configuring)
+* [Installing (the easy way)](#installing-the-easy-way)
+* [Building from Source (advanced users only)](#building-from-source-advanced-users-only)
+
 ### Commands
 
 All of the commands added by this plugin are grouped under the `/rtp` command. Here is a list:
@@ -76,7 +84,7 @@ I'll explain what each bit does:
 1. Put the `.jar` file into your server's `plugins` directory.
 
 
-### Building from Source (Advanced users only)
+### Building from Source (advanced users only)
 
 This plugin builds with [Maven](https://maven.apache.org/) - if you don't have that, you'll need to install it before continuing. To install, open a terminal or command prompt and do the following:
 1. Run `git clone https://github.com/David-Hickey/Bukkit-RTP.git` or download and extract the zip folder containing the source code from [here](https://github.com/David-Hickey/Bukkit-RTP/archive/master.zip).
