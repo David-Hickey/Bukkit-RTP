@@ -128,7 +128,7 @@ public class RTPTeleportCommand extends SubCommand {
 
     private static class FindSafeLocationRunnable extends BukkitRunnable {
 
-        private final RTPPlugin plugin;
+        private final RTPDataStore config;
         private final Player player;
         private final World world;
         private final Location centre;
@@ -137,7 +137,7 @@ public class RTPTeleportCommand extends SubCommand {
         private int checksLeft;
 
         public FindSafeLocationRunnable(RTPPlugin plugin, Player player, World world, Location centre, int radius, int maxChecks) {
-            this.plugin = plugin;
+            this.config = plugin.getDataStorage();
             this.player = player;
             this.world = world;
             this.centre = centre;
@@ -150,7 +150,7 @@ public class RTPTeleportCommand extends SubCommand {
         public void run() {
             if (this.checksLeft-- <= 0) {
                 this.player.sendMessage(ChatColor.RED + "Couldn't find a safe place to teleport. Try again later.");
-                this.plugin.getDataStorage().removeFromWaitingList(this.player);
+                this.config.removeFromWaitingList(this.player);
                 this.cancel();
             }
 
@@ -162,7 +162,7 @@ public class RTPTeleportCommand extends SubCommand {
 
             if (RTPTeleportCommand.isSafe(testLocation)) {
                 this.player.teleport(testLocation);
-                this.plugin.getDataStorage().playerTeleported(this.player, System.currentTimeMillis());
+                this.config.playerTeleported(this.player, System.currentTimeMillis());
                 this.cancel();
             }
         }
