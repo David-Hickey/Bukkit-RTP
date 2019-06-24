@@ -36,3 +36,14 @@ permissions:
     rtp.reload:
         default: op
         description: Allows /rtp reload
+
+    rtp.*:
+        default: false
+        description: All permissions for RTP
+        children:
+            - rtp.reload: true
+            - rtp.tp.nocooldown: true
+            - rtp.tp.radius: true
+            - rtp.tp: true
+            - rtp.config: true
+            - rtp.rtp: true
