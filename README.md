@@ -22,6 +22,11 @@ All of the commands added by this plugin are grouped under the `/rtp` command. H
   - Aliases: `/rtp conf`, `/rtp c`, `/rtp configuration`
   - Permissions:
     - `rtp.config` to allow use of the command
+* `/rtp reload` - reload the plugin configuration
+  - Usage: `/rtp reload`
+  - Aliases: None!
+  - Permissions:
+    - `rtp.reload` to allow use of the command
 * `/rtp help` - display help message
   - Usage: `/rtp help`
   - Aliases: `/rtp h`
