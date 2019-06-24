@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.Material;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Random;
 
