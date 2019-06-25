@@ -86,7 +86,7 @@ I'll explain what each bit does:
 
 ### Building from Source (advanced users only)
 
-This plugin builds with [Maven](https://maven.apache.org/) - if you don't have that, you'll need to install it before continuing. To install, open a terminal or command prompt and do the following:
+This plugin builds with [Maven](https://maven.apache.org/) - if you don't have that, you'll need to install it before continuing. Once you have Maven installed, open a terminal or command prompt and do the following:
 1. Run `git clone https://github.com/David-Hickey/Bukkit-RTP.git` or download and extract the zip folder containing the source code from [here](https://github.com/David-Hickey/Bukkit-RTP/archive/master.zip).
 1. Navigate to the folder containing `pom.xml` and then run `mvn clean install`.
 1. A directory called `target` will appear in the same directory. Inside that directory will be a file called something like `bukkit_rtp-1.0.0.jar` - the number at the end might be different.
