@@ -14,7 +14,8 @@ public class RTPReloadCommand extends SubCommand {
             "reload",
             "reload the configuration",
             "rtp.reload",
-            "/<command> reload"
+            "/<command> reload",
+            "rl"
         );
     }
 

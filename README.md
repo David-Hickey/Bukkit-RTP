@@ -32,14 +32,14 @@ All of the commands added by this plugin are grouped under the `/rtp` command. H
     - `rtp.config` to allow use of the command
 * `/rtp reload` - reload the plugin configuration
   - Usage: `/rtp reload`
-  - Aliases: None!
+  - Aliases: `/rtp rl`
   - Permissions:
     - `rtp.reload` to allow use of the command
 * `/rtp help` - display help message
   - Usage: `/rtp help`
   - Aliases: `/rtp h`
   - Permissions: Enabled for everyone who has access to `/rtp`
-  
+
 
 ### Permissions
 
@@ -50,7 +50,7 @@ All of the commands added by this plugin are grouped under the `/rtp` command. H
 * `rtp.config` - allow use of `/rtp config` to view the configuration
 * `rtp.reload` - allow use of `/rtp reload` to reload the configuration
 * `rtp.*` - give every permission listed above. Use with caution!
-  
+
 By default, normal players have `rtp.rtp` and `rtp.tp`. Ops get every permission listed above except for `rtp.*`.
 
 ### Configuring
