@@ -7,7 +7,7 @@ This plugin enables players to teleport to a random location in the wilderness. 
 * [Commands](#commands)
 * [Permissions](#permissions)
 * [Configuring](#configuring)
-* [Installing (the easy way)](#installing)
+* [Installing](#installing)
 
 ### Commands
 
