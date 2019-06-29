@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>davidhickey.bukkit_rtp</groupId>
-    <artifactId>bukkit_rtp</artifactId>
+    <groupId>davidhickey</groupId>
+    <artifactId>bukkit-rtp</artifactId>
     <version>1.4.0</version>
     <packaging>jar</packaging>
 
@@ -27,6 +27,13 @@
             <version>1.14.2-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>davidhickey</groupId>
+            <artifactId>davelib</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -70,6 +77,49 @@
                             <value>${project.version}</value>
                         </replacement>
                     </replacements>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                    <artifactSet>
+                        <includes>
+                            <include>davidhickey:davelib</include>
+                        </includes>
+                    </artifactSet>
+                    <relocations>
+                        <relocation>
+                            <pattern>davidhickey.davelib</pattern>
+                            <shadedPattern>davidhickey.bukkit_rtp.davelib</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/license/**</exclude>
+                                <exclude>META-INF/*</exclude>
+                                <exclude>META-INF/maven/**</exclude>
+                                <exclude>LICENSE</exclude>
+                                <exclude>NOTICE</exclude>
+                                <exclude>/*.txt</exclude>
+                                <exclude>build.properties</exclude>
+                                <exclude>plugin.yml</exclude>
+                                <exclude>config.yml</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
             </plugin>
         </plugins>
