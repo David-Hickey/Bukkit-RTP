@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import davidhickey.bukkit_rtp.storage.*;
 import davidhickey.bukkit_rtp.command.*;
+import davidhickey.davelib.subcommand.*;
 
 public class RTPPlugin extends JavaPlugin {
 
